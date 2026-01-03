@@ -57,7 +57,7 @@ const ProductDetailModal = ({ product, modalId }) => {
 
   return (
     <dialog id={modalId} className="modal">
-      <div className="modal-box max-w-4xl bg-white p-4 md:p-8">
+      <div className="modal-box max-w-4xl bg-white p-4 md:p-8 relative z-50">
         <form method="dialog">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 md:right-4 md:top-4 text-gray-600 hover:text-gray-900 hover:bg-gray-100 text-xs md:text-base">
             ✕
@@ -121,7 +121,7 @@ const ProductDetailModal = ({ product, modalId }) => {
         </div>
       </div>
       <form method="dialog" className="modal-backdrop bg-gray-900/70">
-        <button>close</button>
+        <button aria-label="Close modal">close</button>
       </form>
     </dialog>
   );

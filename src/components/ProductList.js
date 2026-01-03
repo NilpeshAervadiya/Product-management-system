@@ -13,10 +13,19 @@ const ProductList = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
+  const [productsLoaded, setProductsLoaded] = useState(false);
   const [displayCount, setDisplayCount] = useState(12);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const observerTarget = useRef(null);
   const itemsPerLoad = 12;
+
+  // Track when products are initially loaded
+  useEffect(() => {
+    if (products.length > 0 && !productsLoaded) {
+      setProductsLoaded(true);
+    }
+  }, [products.length, productsLoaded]);
 
   // Filter products by category and search
   useEffect(() => {
@@ -26,6 +35,7 @@ const ProductList = ({
 
         // Apply search filter
         if (searchQuery.trim()) {
+          setHasSearched(true);
           filtered = filtered.filter(
             (product) =>
               product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -33,6 +43,12 @@ const ProductList = ({
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase())
           );
+        } else if (productsLoaded) {
+          // Products have been loaded, user can see empty state if needed
+          setHasSearched(true);
+        } else {
+          // Still loading initial products
+          setHasSearched(false);
         }
 
         setFilteredProducts(filtered);
@@ -65,6 +81,7 @@ const ProductList = ({
 
         // Apply search filter
         if (searchQuery.trim()) {
+          setHasSearched(true);
           filtered = filtered.filter(
             (product) =>
               product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -72,6 +89,9 @@ const ProductList = ({
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase())
           );
+        } else {
+          // Category selected but no search - user has filtered
+          setHasSearched(true);
         }
 
         setFilteredProducts(filtered);
@@ -171,6 +191,7 @@ const ProductList = ({
           loading={loading}
           error={error}
           onDeleteProduct={onDeleteProduct}
+          hasSearched={hasSearched}
         />
 
         {/* Infinite Scroll Observer */}

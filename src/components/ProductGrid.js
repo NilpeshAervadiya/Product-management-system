@@ -1,7 +1,13 @@
 import React from "react";
 import ProductCard from "./ProductCard";
 
-const ProductGrid = ({ products, loading, error, onDeleteProduct }) => {
+const ProductGrid = ({
+  products,
+  loading,
+  error,
+  onDeleteProduct,
+  hasSearched = false,
+}) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[500px]">
@@ -24,7 +30,8 @@ const ProductGrid = ({ products, loading, error, onDeleteProduct }) => {
     );
   }
 
-  if (products.length === 0) {
+  // Only show "No products found" if we've searched/filtered, not during initial load
+  if (products.length === 0 && hasSearched) {
     return (
       <div className="text-center py-16">
         <div className="text-6xl mb-4">📦</div>
@@ -34,6 +41,11 @@ const ProductGrid = ({ products, loading, error, onDeleteProduct }) => {
         <p className="text-gray-500">Try adjusting your search or filters</p>
       </div>
     );
+  }
+
+  // If no products and not searched yet, show nothing (or keep loading state)
+  if (products.length === 0 && !hasSearched) {
+    return null;
   }
 
   console.log("products", products);
