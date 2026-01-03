@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import "./App.css";
 import TopBar from "./components/TopBar";
 import ProductList from "./components/ProductList";
@@ -51,6 +52,27 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-gray-50">
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: "#ffffff",
+              color: "#1f2937",
+              borderRadius: "8px",
+              padding: "12px 16px",
+              border: "1px solid #e5e7eb",
+              boxShadow:
+                "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+            },
+            success: {
+              iconTheme: {
+                primary: "#10b981",
+                secondary: "#ffffff",
+              },
+            },
+          }}
+        />
         <TopBar productCount={productCount} />
 
         <Routes>

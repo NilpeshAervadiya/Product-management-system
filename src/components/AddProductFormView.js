@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 import {
   BsInfoCircle,
   BsStar,
@@ -235,6 +236,9 @@ const AddProductFormView = ({
             onUpdateProduct(updatedProduct);
           }
 
+          // Show success toast
+          toast.success("Product updated successfully!");
+
           // Navigate back to dashboard
           navigate("/");
           setIsSubmitting(false);
@@ -297,6 +301,9 @@ const AddProductFormView = ({
 
           // Call the onAddProduct callback with the created product
           onAddProduct(productWithRating);
+
+          // Show success toast
+          toast.success("Product created successfully!");
 
           // Reset form
           handleReset();

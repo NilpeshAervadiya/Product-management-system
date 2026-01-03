@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import ProductDetailModal from "./ProductDetailModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
@@ -19,6 +20,8 @@ const ProductCard = ({ product, onDeleteProduct }) => {
   const handleConfirmDelete = () => {
     if (onDeleteProduct) {
       onDeleteProduct(product.id);
+      // Show success toast
+      toast.success("Product deleted successfully!");
     }
     document.getElementById(deleteModalId).close();
   };
