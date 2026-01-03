@@ -2,14 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Modal animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 /* Modal backdrop styling - ensure it works in production */
 .modal-backdrop {
     position: fixed !important;
     inset: 0 !important;
-    background-color: rgba(17, 24, 39, 0.7) !important;
+    background-color: rgba(0, 0, 0, 0.7) !important;
     z-index: 40 !important;
     width: 100% !important;
     height: 100% !important;
+    animation: fadeIn 0.2s ease-out !important;
+    transition: opacity 0.2s ease-out !important;
+    will-change: opacity !important;
 }
 
 .modal-backdrop button {
@@ -32,9 +58,26 @@
 .modal-box {
     position: relative !important;
     z-index: 50 !important;
+    animation: slideUp 0.3s ease-out !important;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out !important;
+    will-change: transform, opacity !important;
+    transform: translateZ(0) !important;
 }
 
 /* Ensure dialog container is properly layered */
 .modal {
     z-index: 50 !important;
+}
+
+/* Smooth modal open/close */
+.modal[open] {
+    animation: fadeIn 0.2s ease-out !important;
+}
+
+.modal[open] .modal-box {
+    animation: slideUp 0.3s ease-out !important;
+}
+
+.modal[open] .modal-backdrop {
+    animation: fadeIn 0.2s ease-out !important;
 }

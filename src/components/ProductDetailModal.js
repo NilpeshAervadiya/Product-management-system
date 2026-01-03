@@ -120,7 +120,7 @@ const ProductDetailModal = ({ product, modalId }) => {
           </div>
         </div>
       </div>
-      <form method="dialog" className="modal-backdrop bg-gray-900/70">
+      <form method="dialog" className="modal-backdrop bg-black/70">
         <button aria-label="Close modal">close</button>
       </form>
     </dialog>
